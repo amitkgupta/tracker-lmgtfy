@@ -23,8 +23,7 @@ def truncate_line(line, num_chars):
 def truncate_description(story_description):
     lines = story_description.splitlines(True)
     num_lines = len(lines)
-    if num_lines > 5:
-        lines = lines[:5]
+    lines = lines[:5]
 
     result = ""
     for line in lines:

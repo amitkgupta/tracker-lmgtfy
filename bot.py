@@ -47,7 +47,7 @@ def get_story(story_id):
 
 def post_message(story, channel):
     title = story["name"]
-    description = truncate_description(story["description"])
+    description = truncate_description(story.get("description", ""))
     url = story["url"]
     project_name = SLACK_TRACKER_EMOJI + " " + get_project_name(str(story["project_id"]))
         

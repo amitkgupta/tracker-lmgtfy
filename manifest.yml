@@ -1,0 +1,9 @@
+---
+applications:
+- name: tracker-lmgtfy
+  memory: 2GB
+  disk_quota: 256MB
+  no-route: true
+  health-check-type: none
+  buildpack: python_buildpack
+  command: python bot.py

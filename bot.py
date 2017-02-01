@@ -11,14 +11,10 @@ TRACKER_API_BASE_URL = "https://www.pivotaltracker.com/services/v5/"
 TRACKER_API_HEADERS = {"X-TrackerToken": os.getenv("TRACKER_TOKEN")}
 
 story_pattern = re.compile(r"pivotaltracker.com/projects/\d+/stories/(\d+)|pivotaltracker.com/story/show/(\d+)")
-line_pattern = re.compile(r"(.*\S)\s+\S*$")
 
 def extract_story_ids(text):
     seen = set()
     return [x[0] if x[1] == '' else x[1] for x in re.findall(story_pattern, text) if not (x in seen or seen.add(x))]
-
-def truncate_line(line, num_chars):
-    return line_pattern.match(line[:num_chars]).group(1)
     
 def truncate_description(story_description):
     lines = story_description.splitlines(True)
@@ -30,7 +26,7 @@ def truncate_description(story_description):
         if len(result) + len(line) <= 140:
             result = result + line
         else:
-            return result + truncate_line(line, 140 - len(result)) + "..."
+            return result + line[:140 - len(result)] + "..."
     return result + ("..." if num_lines > 5 else "")
 
 def get_project_name(project_id):
